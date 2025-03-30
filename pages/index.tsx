@@ -267,9 +267,21 @@ export default function Home() {
         <link rel="icon" href="/Sinno_logo.png" />
       </Head>
 
-      <div className="flex flex-col h-screen bg-[#ffd4d4]">
-        <Navbar />
-        <div className="flex-1 overflow-hidden">
+      <div className="flex flex-col h-screen bg-[#ffd4d4] relative">
+        <div className="z-10">
+          <Navbar/>
+        </div>
+        
+        <div className="absolute bottom-0 left-0 w-full z-0">
+          <img 
+            src="/hustbg1.png" 
+            alt="Background" 
+            className="w-full h-auto object-contain opacity-50"  
+          />
+        </div>
+
+        
+        <div className="flex-1 overflow-hidden relative z-20">
           <div className="max-w-[800px] mx-auto h-full">
             <Chat
               messages={messages}
