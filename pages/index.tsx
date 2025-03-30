@@ -4,9 +4,10 @@ import { Navbar } from "@/components/Layout/Navbar";
 import { Message } from "@/types";
 import Head from "next/head";
 import { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 
 export default function Home() {
-  const startMessages = "Xin chào! Tôi là Chatbot Sinno, một trợ lý AI. Tôi có thể giúp bạn với những việc như trả lời câu hỏi, cung cấp thông tin, và hỗ trợ các nhiệm vụ. Tôi có thể giúp gì cho bạn?";
+  const startMessages = "Xin chào! Tôi là Chatbot Soni, một trợ lý AI. Tôi có thể giúp bạn với những việc như trả lời câu hỏi, cung cấp thông tin, và hỗ trợ các nhiệm vụ. Tôi có thể giúp gì cho bạn?";
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -272,13 +273,18 @@ export default function Home() {
           <Navbar/>
         </div>
         
-        <div className="absolute bottom-0 left-0 w-full z-0">
-          <img 
-            src="/hustbg1.png" 
-            alt="Background" 
-            className="w-full h-auto object-contain opacity-50"  
-          />
+        <div className="absolute bottom-0 left-0 w-screen z-0">
+          <div className="relative w-screen h-[50vh]">
+            <Image 
+              src="/hustbg1.png" 
+              alt="Background" 
+              layout="fill" 
+              objectFit="cover"
+              className="opacity-50"
+            />
+          </div>
         </div>
+
 
         
         <div className="flex-1 overflow-hidden relative z-20">
