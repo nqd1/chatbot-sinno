@@ -1,6 +1,7 @@
 import { Message } from "@/types";
 import { FC, useEffect, useState, useMemo } from "react";
 import { CodeBlock } from "./CodeBlock";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
   message: Message;
@@ -33,14 +34,14 @@ export const ChatMessage: FC<Props> = ({ message, isStreaming = false }) => {
       // Handle case where there are no code blocks
       if (!text.includes("```")) {
         return [
-          <div key="text-only" className="mb-2 last:mb-0 whitespace-pre-wrap">
+          <ReactMarkdown key="text-only">
             {text}
-          </div>
+          </ReactMarkdown>
         ];
       }
 
       // Split by code block markers
-      const segments = text.split(/(```(?:.*?)```)/s);
+      const segments = text.split(/(```[\s\S]*?```)/);
       
       return segments.map((segment, index) => {
         // Check if this segment is a code block
