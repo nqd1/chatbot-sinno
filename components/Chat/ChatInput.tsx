@@ -4,9 +4,10 @@ import { FC, KeyboardEvent, useEffect, useRef, useState } from "react";
 interface Props {
   onSend: (message: Message) => void;
   disabled?: boolean;
+  darkMode?: boolean;
 }
 
-export const ChatInput: FC<Props> = ({ onSend, disabled = false }) => {
+export const ChatInput: FC<Props> = ({ onSend, disabled = false, darkMode = false }) => {
   const [content, setContent] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -59,7 +60,7 @@ export const ChatInput: FC<Props> = ({ onSend, disabled = false }) => {
         ref={textareaRef}
         className={`min-h-[60px] max-h-[200px] w-full px-4 py-3 pr-14 rounded-lg border focus:outline-none focus:ring-1 ${
           error ? 'border-red-500 focus:ring-red-500' : 'focus:ring-[#e24242]'
-        } disabled:opacity-50 disabled:bg-gray-100 resize-none`}
+        } ${darkMode ? 'bg-gray-800 text-white border-gray-600 placeholder-gray-400' : 'bg-white text-black'} disabled:opacity-50 disabled:bg-gray-100 resize-none`}
         placeholder="Hãy nhập tin nhắn ở đây..."
         rows={1}
         value={content}

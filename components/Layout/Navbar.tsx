@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import Image from "next/image";
 import { Sun, Moon, Bell } from "lucide-react";
+import { useDarkMode } from "@/components/Contexts/DarkModeContext";
 
 export const Navbar: FC = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <nav className={`border-b border-neutral-200 ${darkMode ? "bg-gray-900" : "bg-[#b01c2c]"}`}>
@@ -39,17 +40,15 @@ export const Navbar: FC = () => {
 
         {/* Icons */}
         <div className="flex items-center space-x-4">
-          {/* Notification Icon */}
           <Bell className="text-white cursor-pointer" size={24} />
           
           {/* Dark Mode Toggle */}
-          <button onClick={() => setDarkMode(!darkMode)}>
+          <button onClick={toggleDarkMode}>
             {darkMode ? <Sun className="text-white" size={24} /> : <Moon className="text-white" size={24} />}
           </button>
         </div>
       </div>
       
-      {/* Development Notice */}
       <div className="text-center text-sm py-1 bg-gray-700 text-white">
         🚀 Đang phát triển thêm tính năng mới! 
         Chi tiết các project khác của SINNO xem <a href="https://github.com/SOICTInnovationClub" 

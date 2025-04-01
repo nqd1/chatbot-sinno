@@ -5,8 +5,10 @@ import { Message } from "@/types";
 import Head from "next/head";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import { useDarkMode } from "@/components/Contexts/DarkModeContext";
 
 export default function Home() {
+  const { darkMode } = useDarkMode();
   const startMessages = "Xin chào! Tôi là Chatbot Soni, một trợ lý AI. Tôi có thể giúp bạn với những việc như trả lời câu hỏi, cung cấp thông tin, và hỗ trợ các nhiệm vụ. Tôi có thể giúp gì cho bạn?";
 
   const [messages, setMessages] = useState<Message[]>([
@@ -268,8 +270,9 @@ export default function Home() {
         <link rel="icon" href="/Sinno_logo.png" />
       </Head>
 
-      <div className="flex flex-col h-screen bg-[#ffd4d4] relative">
-        <div className="z-10">
+      
+      <div className={`flex flex-col h-screen ${darkMode ? 'bg-gray-900' : 'bg-[#ffd4d4]'} relative z-0`}>
+        <div className="z-20">
           <Navbar/>
         </div>
         
@@ -279,16 +282,16 @@ export default function Home() {
               src="/hustbg1.png" 
               alt="Background" 
               layout="fill" 
-              objectFit="cover"
-              className="opacity-50"
+              style={{ objectFit: 'cover' }}
+              className={`${darkMode ? 'opacity-30' : 'opacity-50'}`}
             />
           </div>
         </div>
 
 
         
-        <div className="flex-1 overflow-hidden relative z-20">
-          <div className="max-w-[800px] mx-auto h-full">
+        <div className="flex-1 overflow-hidden relative z-50">
+          <div className="max-w-[800px] mx-auto h-full z-50">
             <Chat
               messages={messages}
               loading={loading}

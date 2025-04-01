@@ -4,6 +4,7 @@ import { ChatInput } from "./ChatInput";
 import { ChatLoader } from "./ChatLoader";
 import { ChatMessage } from "./ChatMessage";
 import { ResetChat } from "./ResetChat";
+import { useDarkMode } from "../Contexts/DarkModeContext";
 
 interface Props {
   messages: Message[];
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const Chat: FC<Props> = ({ messages, loading, streaming, onSend, onReset }) => {
+  const { darkMode } = useDarkMode();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -44,7 +46,7 @@ export const Chat: FC<Props> = ({ messages, loading, streaming, onSend, onReset 
       <div 
         ref={messagesContainerRef}
         onScroll={handleScroll}
-        className="flex-1 overflow-y-auto rounded-lg rounded-b-none p-5 sm:p-5 sm:border border-b-0 border-neutral-300 bg-[#FFF5F5]"
+        className={`flex-1 overflow-y-auto rounded-lg rounded-b-none p-5 sm:p-5 sm:border ${darkMode ? "bg-gray-800 text-white border-gray-700" : "bg-[#FFF5F5] border-neutral-300"}`}
       >
         {messages.map((message, index) => (
           <div
@@ -54,6 +56,7 @@ export const Chat: FC<Props> = ({ messages, loading, streaming, onSend, onReset 
             <ChatMessage 
               message={message} 
               isStreaming={message.isStreaming && streaming} 
+              darkMode={darkMode}
             />
           </div>
         ))}
@@ -68,8 +71,8 @@ export const Chat: FC<Props> = ({ messages, loading, streaming, onSend, onReset 
       </div>
 
       <div className="w-full max-w-[800px] mx-auto">
-        <div className="bg-white rounded-b-xl shadow-lg p-4 border border-t-0 border-neutral-200">
-          <ChatInput onSend={onSend} disabled={loading || streaming} />
+        <div className={`${darkMode ? "bg-gray-700 border-gray-600" : "bg-white border-neutral-200"} rounded-b-xl shadow-lg p-4 border border-t-0`}>
+          <ChatInput onSend={onSend} disabled={loading || streaming} darkMode={darkMode} />
         </div>
       </div>
 

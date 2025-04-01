@@ -6,9 +6,10 @@ import ReactMarkdown from "react-markdown";
 interface Props {
   message: Message;
   isStreaming?: boolean;
+  darkMode?: boolean;
 }
 
-export const ChatMessage: FC<Props> = ({ message, isStreaming = false }) => {
+export const ChatMessage: FC<Props> = ({ message, isStreaming = false, darkMode = false }) => {
   const [displayedContent, setDisplayedContent] = useState<string>(message.content || "");
   const [isNew, setIsNew] = useState<boolean>(true);
 
@@ -72,9 +73,9 @@ export const ChatMessage: FC<Props> = ({ message, isStreaming = false }) => {
         } else if (segment.trim()) {
           // Regular text
           return (
-            <div key={`text-${index}`} className="mb-2 last:mb-0 whitespace-pre-wrap">
+            <ReactMarkdown key={`text-${index}`}>
               {segment}
-            </div>
+            </ReactMarkdown>
           );
         }
         
@@ -90,11 +91,13 @@ export const ChatMessage: FC<Props> = ({ message, isStreaming = false }) => {
       <div
         className={`relative py-3 px-4 rounded-lg max-w-[90%] sm:max-w-[80%] ${
           message.role === "assistant"
-            ? "bg-white text-neutral-900 shadow-sm rounded-tl-none"
+            ? darkMode 
+              ? "bg-gray-700 text-white shadow-sm rounded-tl-none"
+              : "bg-white text-neutral-900 shadow-sm rounded-tl-none"
             : "bg-[#e24242] text-white rounded-tr-none"
         } ${isStreaming ? 'streaming-message' : ''}`}
       >
-        <div className={`prose ${message.role === "assistant" ? "prose-neutral" : "prose-invert"} max-w-none`}>
+        <div className={`prose ${message.role === "assistant" ? darkMode ? "prose-invert" : "prose-neutral" : "prose-invert"} max-w-none`}>
           {formattedContent}
         </div>
         
