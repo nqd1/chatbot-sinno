@@ -36,4 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 # Context
-/components/Context
+/components/Contexts
+
+# env
+.env
