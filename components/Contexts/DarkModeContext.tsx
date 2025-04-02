@@ -5,7 +5,10 @@ interface DarkModeContextProps {
   toggleDarkMode: () => void;
 }
 
-const DarkModeContext = createContext<DarkModeContextProps | undefined>(undefined);
+const DarkModeContext = createContext<DarkModeContextProps>({
+  darkMode: false,
+  toggleDarkMode: () => {},
+});
 
 export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
   const [darkMode, setDarkMode] = useState(false);
@@ -36,13 +39,11 @@ export const DarkModeProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useDarkMode = () => {
+  const context = useContext(DarkModeContext);
+  
   if (typeof window === "undefined") {
-    return { darkMode: false, toggleDarkMode: () => {} }; 
+    return { darkMode: false, toggleDarkMode: () => {} };
   }
   
-  const context = useContext(DarkModeContext);
-  if (!context) {
-    throw new Error("useDarkMode error");
-  }
   return context;
 };
